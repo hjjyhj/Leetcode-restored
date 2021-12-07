@@ -3,38 +3,39 @@
 
 using namespace std;
 
-bool checkPalindrome(string sub) {
-    
-    string ori = sub; 
-    reverse(sub.begin(), sub.end());
-    if (sub == ori) {
-        return true;
+string expand(string s, int start, int end) {
+    while (start > 0 && end < s.length() && s[start] == s[end]) {
+        --start;
+        ++end;
     }
-    return false;
+    return s.substr(start+1, end-start-1);
 }
-
 string longestPalindrome(string s) {
-    string ans;
-    string sub = "";
-    int max = 0;
-    for (int i = 0; i <s.length(); ++i) {
-        for (int j = i; j <s.length(); ++j) {
-            sub = s.substr(i, j - i + 1);
-            if (checkPalindrome(sub) == true) {
-                if (max < sub.length()) {
-                    max = sub.length();
-                    ans = sub;
-                }
-            }
+    string longest = s.substr(0,1);
+    if (s.length() <=1) {
+        return s;
+    }
+
+    for (int i = 0; i < s.length(); ++i) {
+        string temp = expand(s, i, i);
+        
+        if (temp.length() > longest.length()) {
+            longest = temp;
+        }
+        temp = expand(s,i,i+1);
+        if (temp.length() > longest.length()) {
+            longest = temp;
         }
     }
-    return sub;
+    return longest;
+
 }
 
 int main() {
-    string s = "babab";
+    string s = "babad";
     string sub;
     cout << longestPalindrome(s) << endl;
+
 
     
 }
