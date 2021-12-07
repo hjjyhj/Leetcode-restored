@@ -22,12 +22,12 @@ string longestPalindrome(string s) {
 
     for (int i = 0; i < s.length(); ++i) {
         if (s.length()%2 == 0) {
-            string result = expand(s, i-1, i);
+            string result = expand(s, i, i);
             if (result.length() > ans.length()) {
                 ans = result;
             }
         } else {
-            string result = expand(s, i-1, i+1);
+            string result = expand(s, i-1, i);
             if (result.length() > ans.length()) {
                 ans = result;
             }        
@@ -38,7 +38,7 @@ string longestPalindrome(string s) {
 
 
 int main() {
-    string s = "bbbbb";
+    string s = "bbbb";
     string sub;
     cout << longestPalindrome(s) << endl;
 
