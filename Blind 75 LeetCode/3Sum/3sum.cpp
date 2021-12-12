@@ -1,65 +1,33 @@
 #include <iostream>
-#include <unordered_map>
+#include <algorithm>
 #include <vector>
 using namespace std;
 
 vector<vector<int>> threeSum(vector<int> &nums) {
-    unordered_map <int, int> map;
-    vector<int> noDup;
+
     vector<vector<int>> ans;
+    sort(nums.begin(), nums.end());
+
     for (int i = 0; i < nums.size(); ++i) {
-        map[nums[i]] = i;
-    }
-
-    for (auto i = map.begin(); i != map.end(); i++) {
-        noDup.push_back((*i).first);
-    }
-
-    int p1 = 0;
-    int p2 = 1;
-    int p3 = 2;
-
-    if (nums.size() < 2) {
-        return ans;
-    }   else if (nums.size() == 3) {
-            if (nums[p1]+nums[p2]+nums[p3] == 0) {
-                ans.push_back({nums[p1], nums[p2], nums[p3]});
-                return ans;
-            }
-    }
-    
-    while (p1 < noDup.size() - 2) {
-        if (noDup.size() < 2) {
-            return ans;
+        int start = i + 1;
+        int end = nums.size() - 1;
+        if(i > 0 && nums[i] == nums[i-1]) {
+            continue; 
         }
 
-        if (noDup.size() == 3) {
-            if (noDup[p1] + noDup[p2] + noDup[p3] == 0) {
-                vector<int> a;
-                ans.push_back({noDup[p1], noDup[p2], noDup[p3]});
-                return ans;
-                break;
+        while (start < end) {
+            if (nums[i] + nums[start] + nums[end] == 0) {
+                ans.push_back({nums[i], nums[start], nums[end]});
+                start++;
+                end--;
+            } else if (nums[i] + nums[start] + nums[end] < 0) {
+                start++;
+            } else {
+                end--;
             }
         }
-
-        if (noDup[p1] + noDup[p2] + noDup[p3] == 0) {
-            vector<int> a;
-            ans.push_back({noDup[p1], noDup[p2], noDup[p3]});
-        }
-
-        if (p3 == noDup.size() && p2 == noDup.size() -1) {
-            ++p1;
-            p2 = p1 + 1;
-            p3 = p2 + 1;
-        } else if (p3 == noDup.size() && p2 != noDup.size() - 1) {
-            ++p2;
-            p3 = p2 + 1;
-        } else {
-            ++p3;
-        }
     }
-
-    return ans;   
+    return ans;
 }
 
 
