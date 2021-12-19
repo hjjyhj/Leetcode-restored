@@ -1,33 +1,41 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <set>
+
 using namespace std;
 
-vector<vector<int>> dup(vector<vector<int> &ans) {
-    int po1 = 0;
-    int po2 = 1;
-    int nSize = ans.size();
-    for (int i = 0; i < nums.size(); ++i) {
+vector<vector<int>> dup(vector<vector<int>>& ans) {
+    set<int> index;
+
+    for (int i = 0; i < ans.size(); ++i) {
         sort(ans[i].begin(), ans[i].end());
     }
 
-    while (po1 < ans.size() -2) {
-        if (ans[po1] == ans[po2]) {
-            ans.erase(ans.begin() + po2);
+    int i = 0;
+    int j = 1;
+    while (i < ans.size()) {
+        
+        if (j < ans.size() && ans[i] == ans[j]) {
+            index.insert(j);
         }
 
-        if (po2 == ans.size() -1 ) {
-            po1++;
-            po2 = po1 + 1;
+        if (j == ans.size()) {
+            i++;
+            j = i + 1;
         } else {
-            ++po2;
+            j++;
         }
     }
-
-    if (ans[nSize - 2] == ans[nSize-1]) {
-        ans.erase(ans.begin() + nSize - 1);
+    
+    int k = 0;
+    for (auto elem : index) {
+        ans.erase(ans.begin() + elem - k);
+        ++k;
     }
-    return ans;   
+    
+    
+    return ans;
 }
 
 vector<vector<int>> threeSum(vector<int> &nums) {
@@ -64,7 +72,6 @@ vector<vector<int>> threeSum(vector<int> &nums) {
         }
 
         if (nums[p1]+nums[p2]+nums[p3] == 0){
-            vector<int> a;
             ans.push_back({nums[p1], nums[p2], nums[p3]});
         }
 
@@ -80,8 +87,8 @@ vector<vector<int>> threeSum(vector<int> &nums) {
         }
     }
     
-    nums = dup(nums);
-    return nums;
+    ans = dup(ans);
+    return ans;
 }
 
 int main() { 
@@ -95,7 +102,5 @@ int main() {
         }
         cout << endl;
     }
- 
-    
 
 }
