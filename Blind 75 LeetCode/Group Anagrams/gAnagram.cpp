@@ -16,7 +16,7 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
         sort(o.begin(), o.end());
         map[o].push_back(temp);
     }
-
+ 
     for (auto i : map) {
         ans.push_back(i.second);
     }
