@@ -13,7 +13,7 @@ class Solution:
             if nums[i-1] + 1 == nums[i]:
                 cur += 1
             else:
-                cur = 1
+                cur = 1  
             i += 1
             m = max(m, cur)
         return m
