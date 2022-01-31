@@ -15,4 +15,4 @@ class Solution:
             elif q.val < cur.val and p.val < cur.val:
                 cur = cur.left
             else:
-                return cure
+                return cur
